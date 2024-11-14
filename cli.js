@@ -1,24 +1,19 @@
-const path = require('path');
-const fs = require('fs-extra');
-const { execSync } = require('child_process');
+#!/usr/bin/env node
 
-// Define the correct path to your template directory (assuming it's in the root of the project)
-const templateDir = path.join(__dirname, 'template'); // make sure 'template' is the correct folder name
-const targetDir = process.cwd(); // the directory where the user runs the command
+const { execSync } = require('child_process');
+const degit = require('degit');
 
 async function init() {
+  const emitter = degit('geniusyinka/dynamic-nextjs-template'); // Replace with your GitHub username and repo name
+
   try {
-    console.log('Initializing Next.js app...');
-
-    // Copy files from the template directory to the target directory
-    await fs.copy(templateDir, targetDir, { overwrite: false });
-
-    console.log('Files copied! Installing dependencies...');
+    console.log('Fetching Next.js template...');
+    await emitter.clone(process.cwd());
     
-    // Run npm install in the target directory
+    console.log('Installing dependencies...');
     execSync('npm install', { stdio: 'inherit' });
 
-    console.log('Setup complete! Your Next.js app is ready to go.');
+    console.log('Setup complete! Your Next.js app is ready!');
   } catch (error) {
     console.error('Error initializing the app:', error);
   }
