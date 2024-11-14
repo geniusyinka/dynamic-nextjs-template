@@ -4,7 +4,7 @@ const { execSync } = require('child_process');
 const degit = require('degit');
 
 async function init() {
-  const emitter = degit('geniusyinka/dynamic-nextjs-template/template');
+  const emitter = degit('geniusyinka/dynamic-nextjs-template/template', {force: true});
 
   try {
     console.log('Fetching Next.js template...');
